@@ -5,9 +5,7 @@ namespace POC.LaunchDarkly.Api.Extensions;
 
 public static class MediatorExtensions
 {
-	public static async Task<IResult> SendCommand<TResponse>(
-		this IMediator mediator,
-		IRequest<Result<TResponse>> request)
+	public static async Task<IResult> SendCommand<TResponse>(this IMediator mediator, IRequest<Result<TResponse>> request)
 	{
 		var result = await mediator.Send(request);
 

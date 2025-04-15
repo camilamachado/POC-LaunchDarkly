@@ -25,6 +25,8 @@ public sealed class SimularEmprestimoRequestHandler : IRequestHandler<SimularEmp
 
 	public Task<Result<SimularEmprestimoResponse>> Handle(SimularEmprestimoRequest request, CancellationToken cancellationToken)
 	{
+		//var context = Context.Builder("premium").Build();
+
 		if (_ldClient.BoolVariation("taxa_juros_premium", _ldContext.Value, false))
 		{
 			_taxaDeJuros = 0.03m;

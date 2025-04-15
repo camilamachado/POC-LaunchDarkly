@@ -5,8 +5,10 @@ using POC.LaunchDarkly.Shareable.Validators;
 
 namespace POC.LaunchDarkly.Shareable.Requests;
 
-public record SimularEmprestimoRequest(
+public record CriarEmprestimoRequest(
+	string CPF,
 	decimal ValorSolicitado,
 	int PrazoEmMeses,
-	string Finalidade
-) : IRequest<Result<SimularEmprestimoResponse>>, IValidatableRequest;
+	string Finalidade,
+	string NumeroConta
+) : IRequest<Result<CriarEmprestimoResponse>>, IValidatableRequest;
