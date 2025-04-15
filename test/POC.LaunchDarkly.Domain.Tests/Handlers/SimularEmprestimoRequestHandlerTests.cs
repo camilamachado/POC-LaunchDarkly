@@ -36,8 +36,8 @@ public class SimularEmprestimoRequestHandlerTests
 
 		resultado.Should().NotBeNull();
 		resultado!.TaxaDeJuros.Should().Be(0.03m);
-		resultado.ValorParcelaMensal.Should().BeApproximately(1030m, 0.01m);
-		resultado.ValorTotalAPagar.Should().BeApproximately(10300m, 0.01m);
+		resultado.ValorParcelaMensal.Should().Be(1030m);
+		resultado.ValorTotalAPagar.Should().Be(10300m);
 	}
 
 	[Fact]
@@ -56,7 +56,7 @@ public class SimularEmprestimoRequestHandlerTests
 
 		resultado.Should().NotBeNull();
 		resultado!.TaxaDeJuros.Should().Be(0.05m);
-		resultado.ValorParcelaMensal.Should().BeApproximately(1050m, 0.01m);
-		resultado.ValorTotalAPagar.Should().BeApproximately(10500m, 0.01m);
+		resultado.ValorParcelaMensal.Should().Be(1050m);
+		resultado.ValorTotalAPagar.Should().Be(10500m);
 	}
 }
