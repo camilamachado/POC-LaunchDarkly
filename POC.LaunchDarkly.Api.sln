@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POC.LaunchDarkly.Api.AppHos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POC.LaunchDarkly.Api.ServiceDefaults", "src\POC.LaunchDarkly.Api.ServiceDefaults\POC.LaunchDarkly.Api.ServiceDefaults.csproj", "{268D4F72-FA95-6D21-E390-5167AD76F61D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99 - Tests", "99 - Tests", "{86AAC24E-363F-4DFB-96C6-04E860D42693}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POC.LaunchDarkly.Domain.Tests", "test\POC.LaunchDarkly.Domain.Tests\POC.LaunchDarkly.Domain.Tests.csproj", "{0479158F-A9F2-4E95-8353-3DBC55AF8340}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,10 @@ Global
 		{268D4F72-FA95-6D21-E390-5167AD76F61D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{268D4F72-FA95-6D21-E390-5167AD76F61D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{268D4F72-FA95-6D21-E390-5167AD76F61D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0479158F-A9F2-4E95-8353-3DBC55AF8340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0479158F-A9F2-4E95-8353-3DBC55AF8340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0479158F-A9F2-4E95-8353-3DBC55AF8340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0479158F-A9F2-4E95-8353-3DBC55AF8340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +79,7 @@ Global
 		{707AD521-C130-4F6C-9674-6CEDFA64BEAE} = {962EBCEE-0174-43AB-857A-443FB2FE1081}
 		{238164AE-7B20-422C-91B2-317F1CBAA65E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{268D4F72-FA95-6D21-E390-5167AD76F61D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{0479158F-A9F2-4E95-8353-3DBC55AF8340} = {86AAC24E-363F-4DFB-96C6-04E860D42693}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73363C01-E8AB-44DC-B328-488422325C17}
