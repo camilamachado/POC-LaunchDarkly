@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "65958d52-8708-475d-8167-7d66c25e6c85",
+		"name": "LaunchDarkly-POC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "43765497",
+		"_collection_link": "https://camilamelomachado.postman.co/workspace/Camila-Melo-Machado's-Workspace~c1facee1-81cc-409f-8ddc-1ba9adde1b30/collection/43765497-65958d52-8708-475d-8167-7d66c25e6c85?action=share&source=collection_link&creator=43765497"
+	},
+	"item": [
+		{
+			"name": "Relay Proxy",
+			"item": [
+				{
+					"name": "Solicitações de status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8030/status"
+					},
+					"response": []
+				},
+				{
+					"name": "Status das toggles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sdk-02c8c6c3-c525-4d7f-81c7-90355ec78ca9",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8030/flags"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Simular emprestimo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5186/api/v1/emprestimos/simulacao?ValorSolicitado=1000&PrazoEmMeses=12&Finalidade=Reforma",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5186",
+					"path": [
+						"api",
+						"v1",
+						"emprestimos",
+						"simulacao"
+					],
+					"query": [
+						{
+							"key": "ValorSolicitado",
+							"value": "1000"
+						},
+						{
+							"key": "PrazoEmMeses",
+							"value": "12"
+						},
+						{
+							"key": "Finalidade",
+							"value": "Reforma"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar emprestimo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"01197999957\",\r\n    \"valorSolicitado\": 1000,\r\n    \"prazoEmMeses\": 12,\r\n    \"finalidade\": \"Reforma casa\",\r\n    \"numeroConta\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5186/api/v1/emprestimos"
+			},
+			"response": []
+		}
+	]
+}
