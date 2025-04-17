@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using LaunchDarkly.Sdk;
 using LaunchDarkly.Sdk.Server;
+using LaunchDarkly.Sdk.Server.Integrations;
 using LaunchDarkly.Sdk.Server.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -48,11 +49,15 @@ public static class AppServiceCollectionExtensions
 			var logger = sp.GetRequiredService<ILogger<ILdClient>>();
 
 			var ldConfig = Configuration.Builder(options.SdkKey)
-				.ServiceEndpoints(Components.ServiceEndpoints()
-					.Streaming(options.StreamingUri)
-					.Polling(options.PollingUri)
-					.Events(options.EventsUri))
-				.Build();
+							.DataStore(
+								Components.PersistentDataStore(
+									Redis.DataStore()
+										.Uri(options.RedisUri)
+										.Prefix(options.RedisPrefix)
+								).CacheSeconds(30)
+							)
+							.DataSource(Components.ExternalUpdatesOnly) // modo daemon
+							.Build();
 
 			var client = new LdClient(ldConfig);
 
