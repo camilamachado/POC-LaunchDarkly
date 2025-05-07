@@ -1,4 +1,5 @@
-﻿using LaunchDarkly.Sdk;
+﻿using Flagsmith;
+using LaunchDarkly.Sdk;
 using LaunchDarkly.Sdk.Server.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -10,24 +11,22 @@ namespace POC.LaunchDarkly.Domain.Handlers;
 
 public sealed class SimularEmprestimoRequestHandler : IRequestHandler<SimularEmprestimoRequest, Result<SimularEmprestimoResponse>>
 {
-	private readonly ILdClient _ldClient;
-	private readonly Lazy<Context> _ldContext;
+	private readonly IFlagsmithClient _flagsmithClient;
 	private readonly ILogger<SimularEmprestimoRequestHandler> _logger;
 
 	private decimal _taxaDeJuros = 0.05m;
 
-	public SimularEmprestimoRequestHandler(ILdClient ldClient, Lazy<Context> ldContext, ILogger<SimularEmprestimoRequestHandler> logger)
+	public SimularEmprestimoRequestHandler(IFlagsmithClient flagsmithClient, ILogger<SimularEmprestimoRequestHandler> logger)
 	{
-		_ldClient = ldClient;
-		_ldContext = ldContext;
+		_flagsmithClient = flagsmithClient;
 		_logger = logger;
 	}
 
-	public Task<Result<SimularEmprestimoResponse>> Handle(SimularEmprestimoRequest request, CancellationToken cancellationToken)
+	public async Task<Result<SimularEmprestimoResponse>> Handle(SimularEmprestimoRequest request, CancellationToken cancellationToken)
 	{
-		//var context = Context.Builder("premium").Build();
+		var flags = await _flagsmithClient.GetEnvironmentFlags();
 
-		if (_ldClient.BoolVariation("taxa_juros_premium", _ldContext.Value, false))
+		if (await flags.IsFeatureEnabled("teste"))
 		{
 			_taxaDeJuros = 0.03m;
 		}

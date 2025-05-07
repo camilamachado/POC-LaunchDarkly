@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Flagsmith;
+using FluentValidation;
 using LaunchDarkly.Sdk;
 using LaunchDarkly.Sdk.Server;
 using LaunchDarkly.Sdk.Server.Integrations;
@@ -34,9 +35,33 @@ public static class AppServiceCollectionExtensions
 		services.AddValidatorsFromAssemblyContaining<IShareableEntryPoint>();
 		services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+		ConfigureFlagsmith(services);
 		ConfigureLaunchDarkly(services, configuration);
 
 		services.AddScoped<IEmprestimoRepository, EmprestimoRepository>();
+	}
+
+	private static void ConfigureFlagsmith(IServiceCollection services)
+	{
+		services.AddSingleton<IFlagsmithClient>(sp =>
+		{
+			var logger = sp.GetRequiredService<ILogger<IFlagsmithClient>>();
+
+			var clientConfig = new FlagsmithConfiguration
+			{
+				EnvironmentKey = "c9534NGr88eobmnk55zPHD", // client_side_key
+				ApiUri = new Uri("http://localhost:8001/api/v1"),   // apontando para o Edge Proxy
+				EnableLocalEvaluation = false,              // avaliação feita pelo Edge
+				Logger = logger
+			};
+
+			var client = new FlagsmithClient(clientConfig);
+
+			var flags = client.GetEnvironmentFlags().Result;
+			var showButton = flags.IsFeatureEnabled("teste").Result;
+
+			return client;
+		});
 	}
 
 	private static void ConfigureLaunchDarkly(IServiceCollection services, IConfiguration configuration)
