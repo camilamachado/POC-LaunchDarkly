@@ -20,19 +20,9 @@ var flagsmith = builder.AddContainer("flagsmith", "docker.flagsmith.com/flagsmit
 	.WaitFor(postgres)
 	.WithLifetime(ContainerLifetime.Persistent);
 
-// Edge Proxy (sem config.json, via ENVIRONMENT_KEY_PAIRS)
-var edgeProxy = builder.AddContainer("flagsmith-edge-proxy", "flagsmith/edge-proxy:latest")
-	.WithEnvironment("ENVIRONMENT_KEY_PAIRS", "[{\"server_side_key\":\"ser.gtE5DtCLnCa72nPE2PTLa7\",\"client_side_key\":\"c9534NGr88eobmnk55zPHD\"},{\"server_side_key\":\"ser.nxTMfZnYnVhXPGNGC9XYr8\",\"client_side_key\":\"H9fULMxPeg6Y6vWuQGaeJg\"}]")
-	.WithEnvironment("API_URL", "http://flagsmith:8000/api/v1")
-	.WithEnvironment("API_POLL_FREQUENCY_SECONDS", "60")
-	.WithEnvironment("LOGGING", "{\"log_level\":\"DEBUG\",\"log_format\":\"json\"}")
-	.WithHttpEndpoint(8001, 8000)
-	.WaitFor(flagsmith)
-	.WithLifetime(ContainerLifetime.Persistent);
-
 builder.AddProject<Projects.POC_LaunchDarkly_Api>("poc-launchdarkly-api")
 	.WithReference(postgres)
 	.WaitFor(postgres)
-	.WaitFor(edgeProxy);
+	.WaitFor(flagsmith);
 
 builder.Build().Run();

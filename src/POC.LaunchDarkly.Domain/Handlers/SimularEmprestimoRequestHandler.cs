@@ -24,9 +24,12 @@ public sealed class SimularEmprestimoRequestHandler : IRequestHandler<SimularEmp
 
 	public async Task<Result<SimularEmprestimoResponse>> Handle(SimularEmprestimoRequest request, CancellationToken cancellationToken)
 	{
-		var flags = await _flagsmithClient.GetEnvironmentFlags();
+		var identity = "Development_user_camila";
 
-		if (await flags.IsFeatureEnabled("teste"))
+		// Traits = funcionario, cliente_premium, cliente_padrao
+		var flags = await _flagsmithClient.GetIdentityFlags(identity, new List<ITrait> { new Trait("tipo_cliente", "funcionario") });
+
+		if (await flags.IsFeatureEnabled("taxa_de_juros_premium"))
 		{
 			_taxaDeJuros = 0.03m;
 		}
